@@ -1,12 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-class Program
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
         Console.WriteLine("Maze Solver");
-        bool[] row = new bool[] { false, false, false, false, false };
-
+        bool[] row = new bool[] { false, false, false, false, true };
+        
         int spaceLocation = FindTheEmptySpace(row);
 
         if (spaceLocation == -1)
@@ -15,7 +15,7 @@ class Program
             Console.WriteLine("location = " + spaceLocation);
     }
 
-    static int FindTheEmptySpace(bool[] row)
+    public static int FindTheEmptySpace(bool[] row)
     {
         int spaceLocation = -1;
 
