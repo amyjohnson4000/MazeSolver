@@ -4,24 +4,18 @@ using System.Drawing;
 
 public class Program
 {
-    public static class globals
-    {
-        public static Point mazeLocation;
-    }
-
     public static void Main(string[] args)
     {
         Point startPoint = new Point(0, 0);
-        globals.mazeLocation = new Point(0, 0);
+        Point mazeLocation = new Point(0, 0);
         Console.WriteLine("Maze Solver");
 
-        bool[,] maze = new bool[,] {{ false, false, true, false, false },
-            { false, false, true, false, false },
-            { false, false, true, false, false },
-            { false, false, true, false, false }};
+        bool[,] maze = new bool[,] {{ false, false, false, true, false },
+            { false, false, false, true, false },
+            { false, false, false, true, false },
+            { false, false, false, true, false }};
         
         bool[] row1 = GetFirstRow(maze);
-        
         int spaceLocation = FindTheEmptySpace(row1);
         
         if (spaceLocation == -1)
@@ -33,40 +27,38 @@ public class Program
         Console.WriteLine("start point, x = " + startPoint.X);
         Console.WriteLine("start point, y = " + startPoint.Y);
 
-        globals.mazeLocation = startPoint;
-        MoveDown(maze, startPoint);
+        mazeLocation = startPoint;
+        Point endMazeLocation = MoveDown(maze, startPoint);
     }
 
-    public static void MoveDown(bool[,] matrix, Point startPoint)
+    public static Point MoveDown(bool[,] matrix, Point mazeLocation)
     {
         int numRows = (matrix.GetUpperBound(0) + 1);
         int numCols = (matrix.GetUpperBound(1) + 1);
-        Console.WriteLine("Number of Rows:" + numRows);
 
         for (int i = 0; i < numRows; i++)
         {
-            Console.WriteLine(startPoint.X);
-            Console.WriteLine(i);
-            Console.WriteLine(matrix[startPoint.X, i]);
-                        
-            if (matrix[i, startPoint.X] == true)
+            Console.WriteLine(matrix[i, mazeLocation.X]);
+            
+            if (matrix[i, mazeLocation.X] == true)
             {
-                Console.WriteLine("x = " + startPoint.X);
+                Console.WriteLine("x = " + mazeLocation.X);
                 Console.WriteLine("y = " + i);
-                globals.mazeLocation.Y = i;
+                mazeLocation.Y = i;
             }
             else
             {
                 Console.WriteLine("Maze has reached dead end.");
-                Console.WriteLine("end point, x = " + globals.mazeLocation.X);
-                Console.WriteLine("end point, y = " + globals.mazeLocation.Y);
-                return;
+                Console.WriteLine("end point, x = " + mazeLocation.X);
+                Console.WriteLine("end point, y = " + mazeLocation.Y);
+                return mazeLocation;
             }
-            
         }
+
         Console.WriteLine("Maze has been completed");
-        Console.WriteLine("end point, x = " + globals.mazeLocation.X);
-        Console.WriteLine("end point, y = " + globals.mazeLocation.Y);
+        Console.WriteLine("end point, x = " + mazeLocation.X);
+        Console.WriteLine("end point, y = " + mazeLocation.Y);
+        return mazeLocation;
     }
     
     public static bool[] GetFirstRow(bool[,] matrix)
