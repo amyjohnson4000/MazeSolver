@@ -34,13 +34,31 @@ public class Program
                                             { false, true, false, false, false }};
         */
 
-        bool[,] windingMaze = new bool[,] {{ false, false, true, false, false },
-                                            { false, false, true, true, false },
-                                            { false, false, true, true, true },
-                                            { false, false, true, true, true },
-                                            { false, false, true, false, false },
-                                            { true, true, true, false, false },
-                                            { true, false, false, true, false } };
+        //bool[,] windingMaze = new bool[,] {{ false, false, true, false, false },
+        //                                    { false, false, true, true, false },
+        //                                    { false, false, true, true, true },
+        //                                    { false, false, true, true, true },
+        //                                    { false, false, true, false, false },
+        //                                    { true, true, true, false, false },
+        //                                    { true, false, false, true, false } };
+
+        //bool[,] deadEndMaze = new bool[,] {{ false, true, false, false, false },
+        //                                       { false, true, true, true, false },
+        //                                       { false, true, true, true, true },
+        //                                       { false, true, false, false, true },
+        //                                       { true, true, false, false, false },
+        //                                       { true, false, false, false, false } };
+
+        bool[,] completeMaze = new bool[,] {        { false, false, false, false, true, false, false, false, false, false },
+                                                    { false, true, true, true, true, true, true, true, true, false },
+                                                    { false, true, false, false, false, true, false, false, true, false },
+                                                    { false, false, false, true, true, true, true, false, true, false },
+                                                    { false, true, true, true, false, false, false, false, true, false },
+                                                    { false, false, false, true, true, true, false, true, true, false },
+                                                    { false, true, false, false, false, true, false, false, false, false },
+                                                    { false, true, true, true, true, true, false, false, true, false },
+                                                    { false, false, true, false, false, true, true, true, true, false },
+                                                    { false, false, false, false, false, false, false, true, false, false } };
 
         bool[] row1;
         int spaceLocation;
@@ -65,7 +83,7 @@ public class Program
         */
 
         //Room Maze
-        row1 = GetFirstRow(windingMaze);
+        row1 = GetFirstRow(completeMaze);
         spaceLocation = FindTheEmptySpace(row1);
 
         if (spaceLocation == -1)
@@ -78,7 +96,7 @@ public class Program
         Console.WriteLine("start point, y = " + startPoint.Y);
 
         mazeLocation = startPoint;
-        endMazeLocation = MoveThroughRoom(windingMaze, startPoint);
+        endMazeLocation = MoveThroughRoom(completeMaze, startPoint);
     }
 
     public static Point MoveThroughRoom(bool[,] matrix, Point mazeLocation)
@@ -117,10 +135,21 @@ public class Program
                 Console.WriteLine("y = " + mazeLocation.Y);
             }
 
+            else if ((mazeLocation.Y != 0) && (matrix[mazeLocation.Y - 1, (mazeLocation.X)] == true && (previousLocation.Y != (mazeLocation.Y - 1))))
+            {
+                mazeLocation.Y--;
+                Console.WriteLine("\nx = " + mazeLocation.X);
+                Console.WriteLine("y = " + mazeLocation.Y);
+            }
+
             else
             {
+                mazeLocation.X = previousLocation.X;
+                mazeLocation.Y = previousLocation.Y;
+
                 Console.WriteLine("Maze has reached dead end.");
-                return mazeLocation;
+                Console.WriteLine("\nx = " + mazeLocation.X);
+                Console.WriteLine("y = " + mazeLocation.Y);
             }
             
             previousLocation = storedLocation;
