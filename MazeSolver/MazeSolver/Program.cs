@@ -120,15 +120,15 @@ public class Program
                 Console.WriteLine("\nx = " + mazeLocation.X);
                 Console.WriteLine("y = " + mazeLocation.Y);
             }
-
+            
             else if (matrix[(mazeLocation.Y + 1), mazeLocation.X] == true && (previousLocation.Y != (mazeLocation.Y + 1)))
             {
                 mazeLocation.Y++;
                 Console.WriteLine("\nx = " + mazeLocation.X);
                 Console.WriteLine("y = " + mazeLocation.Y);
             }
-
-            else if ((mazeLocation.X != 0)  && (matrix[mazeLocation.Y, (mazeLocation.X - 1)] == true && (previousLocation.X != (mazeLocation.X - 1))))
+            
+            else if ((mazeLocation.X != 0) && (matrix[mazeLocation.Y, (mazeLocation.X - 1)] == true && (previousLocation.X != (mazeLocation.X - 1))))
             {
                 mazeLocation.X--;
                 Console.WriteLine("\nx = " + mazeLocation.X);
