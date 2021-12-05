@@ -11,30 +11,30 @@ public class Program
         Point previousLocation = new Point(0, 0);
         Console.WriteLine("Maze Solver");
 
-        bool[,] hallwayMaze = new bool[,] {{ false, false, false, true, false },
-            { false, false, false, true, false },
-            { false, false, false, true, false },
-            { false, false, false, true, false }};
+        //bool[,] maze = new bool[,] {{ false, false, false, true, false },
+        //    { false, false, false, true, false },
+        //    { false, false, false, true, false },
+        //    { false, false, false, true, false }};
 
-        /*
-        bool[,] roomMaze = new bool[,] {{ false, true, false, false, false },
-                                        { false, true, true, true, false },
-                                        { false, true, true, true, false },
-                                        { false, false, false, true, false }};
-        */
+        //room maze
+        //bool[,] maze = new bool[,] {{ false, true, false, false, false },
+        //                                { false, true, true, true, false },
+        //                                { false, true, true, true, false },
+        //                                { false, false, false, true, false }};
+
 
         //bool[,] roomMaze = new bool[,] {{ false, false, false, true, false },
         //                                    { false, true, true, true, false },
         //                                    { false, true, true, true, false },
         //                                    { false, false, true, false, false }};
-        /*
-        bool[,] roomMaze = new bool[,] {    { false, true, false, false, false },
-                                            { false, true, true, true, false },
-                                            { false, true, true, true, false },
-                                            { false, true, false, false, false }};
-        */
 
-        //bool[,] windingMaze = new bool[,] {{ false, false, true, false, false },
+        //bool[,] roomMaze = new bool[,] {    { false, true, false, false, false },
+        //                                    { false, true, true, true, false },
+        //                                    { false, true, true, true, false },
+        //                                    { false, true, false, false, false }};
+
+        //winding maze
+        //bool[,] maze = new bool[,] {        { false, false, true, false, false },
         //                                    { false, false, true, true, false },
         //                                    { false, false, true, true, true },
         //                                    { false, false, true, true, true },
@@ -42,23 +42,24 @@ public class Program
         //                                    { true, true, true, false, false },
         //                                    { true, false, false, true, false } };
 
-        //bool[,] deadEndMaze = new bool[,] {{ false, true, false, false, false },
-        //                                       { false, true, true, true, false },
-        //                                       { false, true, true, true, true },
-        //                                       { false, true, false, false, true },
-        //                                       { true, true, false, false, false },
-        //                                       { true, false, false, false, false } };
+        //dead end maze
+        bool[,] maze = new bool[,] {           { false, true, false, false, false },
+                                               { false, true, true, true, false },
+                                               { false, true, true, true, true },  //true
+                                               { false, true, false, false, true },  //true
+                                               { true, true, false, false, false },
+                                               { true, false, false, false, false } };
 
-        bool[,] completeMaze = new bool[,] {        { false, false, false, false, true, false, false, false, false, false },
-                                                    { false, true, true, true, true, true, true, true, true, false },
-                                                    { false, true, false, false, false, true, false, false, true, false },
-                                                    { false, false, false, true, true, true, true, false, true, false },
-                                                    { false, true, true, true, false, false, false, false, true, false },
-                                                    { false, false, false, true, true, true, false, true, true, false },
-                                                    { false, true, false, false, false, true, false, false, false, false },
-                                                    { false, true, true, true, true, true, false, false, true, false },
-                                                    { false, false, true, false, false, true, true, true, true, false },
-                                                    { false, false, false, false, false, false, false, true, false, false } };
+        //bool[,] completeMaze = new bool[,] {        { false, false, false, false, true, false, false, false, false, false },
+        //                                            { false, true, true, true, true, true, true, true, true, false },
+        //                                            { false, true, false, false, false, true, false, false, true, false },
+        //                                            { false, false, false, true, true, true, true, false, true, false },
+        //                                            { false, true, true, true, false, false, false, false, true, false },
+        //                                            { false, false, false, true, true, true, false, true, true, false },
+        //                                            { false, true, false, false, false, true, false, false, false, false },
+        //                                            { false, true, true, true, true, true, false, false, true, false },
+        //                                            { false, false, true, false, false, true, true, true, true, false },
+        //                                            { false, false, false, false, false, false, false, true, false, false } };
 
         bool[] row1;
         int spaceLocation;
@@ -83,7 +84,7 @@ public class Program
         */
 
         //Room Maze
-        row1 = GetFirstRow(completeMaze);
+        row1 = GetFirstRow(maze);
         spaceLocation = FindTheEmptySpace(row1);
 
         if (spaceLocation == -1)
@@ -92,11 +93,111 @@ public class Program
             Console.WriteLine("location = " + spaceLocation);
 
         startPoint.X = spaceLocation;
-        Console.WriteLine("start point, x = " + startPoint.X);
-        Console.WriteLine("start point, y = " + startPoint.Y);
+        //endMazeLocation = MoveThroughRoom(completeMaze, startPoint);
+        StartSolveMaze(maze, startPoint);
+        Console.WriteLine("Maze has been solved.");
+    }
 
-        mazeLocation = startPoint;
-        endMazeLocation = MoveThroughRoom(completeMaze, startPoint);
+    public static void StartSolveMaze(bool[,] matrix, Point startPoint)
+    {
+        //creates the list of points (the path), that we'll be exploring
+        List<Point> path = new List<Point>();
+
+        Console.WriteLine("Start Point, x = {0}, y = {1} ", startPoint.X, startPoint.Y);
+        //Adds the start point to the path;
+        path.Add(startPoint);
+
+        SolveMaze(matrix, path);
+
+        //Show the path that was found
+        foreach (Point p in path)
+            Console.WriteLine("Point, x = {0}, y = {1} " , p.X, p.Y);
+    }
+
+    public static bool SolveMaze(bool[,] matrix, List<Point> path)
+    {
+        Console.WriteLine("Solve Maze CALLED");
+        int numRows = (matrix.GetUpperBound(0) + 1);
+        int numCols = (matrix.GetUpperBound(1) + 1);
+        Point lastPoint = path[path.Count - 1];
+
+        //only for the start point
+        Point previousPoint = lastPoint;
+
+        if (path.Count > 1)
+        {
+            previousPoint = path[path.Count - 2];
+        }
+
+        if (lastPoint.Y == numRows - 1)
+        {
+            Console.WriteLine("The Last Point Has Been Found!, x = {0}, y = {1} ", lastPoint.X, lastPoint.Y);
+            Console.WriteLine("Last Point SHOULD be in Index: x = {0}", numRows - 1);
+            return true;
+        }
+        
+        if ((lastPoint.X != (numCols - 1)) && matrix[lastPoint.Y, (lastPoint.X + 1)] == true && (previousPoint.X != (lastPoint.X + 1)))
+        {
+            path.Add(new Point(lastPoint.X + 1, lastPoint.Y));
+            if (SolveMaze(matrix, path))
+            {
+                Console.WriteLine("Call of RIGHT X has returned true");
+                return true;
+            }
+            path.RemoveAt(path.Count - 1);
+            Console.WriteLine("Point, x = {0}, y = {1} ", lastPoint.X, lastPoint.Y);
+        }
+
+        else if (matrix[(lastPoint.Y + 1), lastPoint.X] == true && (previousPoint.Y != (lastPoint.Y + 1)))
+        {
+            path.Add(new Point(lastPoint.X, lastPoint.Y + 1));
+            if (SolveMaze(matrix, path))
+            {
+                Console.WriteLine("Call of DOWN Y has returned true");
+                return true;
+            }
+            path.RemoveAt(path.Count - 1);
+            Console.WriteLine("Point, x = {0}, y = {1} ", lastPoint.X, lastPoint.Y);
+        }
+
+        else if ((lastPoint.X != 0) && (matrix[lastPoint.Y, (lastPoint.X - 1)] == true && (previousPoint.X != (lastPoint.X - 1))))
+        {
+            path.Add(new Point(lastPoint.X -1, lastPoint.Y));
+            if (SolveMaze(matrix, path))
+            {
+                Console.WriteLine("Call of LEFT X has returned true");
+                return true;
+            }
+            path.RemoveAt(path.Count - 1);
+            Console.WriteLine("Point, x = {0}, y = {1} ", lastPoint.X, lastPoint.Y);
+        }
+
+        else if ((lastPoint.Y != 0) && (matrix[lastPoint.Y - 1, (lastPoint.X)] == true && (previousPoint.Y != (lastPoint.Y - 1))))
+        {
+            path.Add(new Point(lastPoint.X, lastPoint.Y - 1));
+            if (SolveMaze(matrix, path))
+            {
+                Console.WriteLine("Call of UP Y has returned true");
+                return true;
+            }
+            path.RemoveAt(path.Count - 1);
+            Console.WriteLine("Point, x = {0}, y = {1} ", lastPoint.X, lastPoint.Y);
+        }
+
+        //Dead end
+        else
+        {
+            Console.WriteLine("Dead End Reached");
+            path.RemoveAt(path.Count - 1);
+            return false;
+            //if (SolveMaze(matrix, path))
+            //{
+            //    Console.WriteLine("Call of Dead End has returned true");
+            //    return true;
+            //}
+        }
+
+        return false;
     }
 
     public static Point MoveThroughRoom(bool[,] matrix, Point mazeLocation)
@@ -212,7 +313,7 @@ public class Program
     public static int FindTheEmptySpace(bool[] row)
     {
         int spaceLocation = -1;
-
+        
         for (int i = 0; i < row.Length; i++)
         {
             if (row[i] == true)
