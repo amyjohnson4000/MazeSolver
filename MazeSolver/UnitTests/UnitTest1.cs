@@ -384,13 +384,14 @@ namespace UnitTests
             Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
             Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
         }
+    }
 
-        public class CompleteMazeTests
+    public class CompleteMazeTests
+    {
+        [Test]
+        public void CompleteMazeTest1()
         {
-            [Test]
-            public void CompleteMazeTest1()
-            {
-                bool[,] completeMaze = new bool[,] {{ false, false, false, false, true, false, false, false, false, false },
+            bool[,] completeMaze = new bool[,] {{ false, false, false, false, true, false, false, false, false, false },
                                                     { false, true, true, true, true, true, true, true, true, false },
                                                     { false, true, false, false, false, true, false, false, true, false },
                                                     { false, false, false, true, true, true, true, false, true, false },
@@ -401,26 +402,26 @@ namespace UnitTests
                                                     { false, false, true, false, false, true, true, true, true, false },
                                                     { false, false, false, false, false, false, false, true, false, false } };
 
-                bool[] row1 = Program.GetFirstRow(completeMaze);
-                Point startPoint = new Point(0, 0);
-                int spaceLocation = Program.FindTheEmptySpace(row1);
-                startPoint.X = spaceLocation;
-                Point endLocation = Program.StartSolveMaze(completeMaze, startPoint);
-                int actualX = endLocation.X;
-                int actualY = endLocation.Y;
+            bool[] row1 = Program.GetFirstRow(completeMaze);
+            Point startPoint = new Point(0, 0);
+            int spaceLocation = Program.FindTheEmptySpace(row1);
+            startPoint.X = spaceLocation;
+            Point endLocation = Program.StartSolveMaze(completeMaze, startPoint);
+            int actualX = endLocation.X;
+            int actualY = endLocation.Y;
 
-                int expectedX = 7;
-                int expectedY = 9;
+            int expectedX = 7;
+            int expectedY = 9;
 
-                Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
-                Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
-            }
+            Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
+            Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
+        }
 
-            [Test]
-            public void CompleteMazeTestWithRoom()
-            {
-                //complete maze
-                bool[,] completeMaze = new bool[,] {{ false, false, false, false, true,  false, false, false, false, false },
+        [Test]
+        public void CompleteMazeTestWithRoom()
+        {
+            //complete maze
+            bool[,] completeMaze = new bool[,] {{ false, false, false, false, true,  false, false, false, false, false },
                                                     { false, true,  true,  true,  true,  true,  true,  true,  true,  false },
                                                     { false, true,  false, false, false, true,  false, false, true,  false },
                                                     { false, false, false, true,  true,  true,  true,  false, true,  false },
@@ -431,25 +432,25 @@ namespace UnitTests
                                                     { false, false, true,  false, false, true,  true,  true,  true,  false },
                                                     { false, false, false, false, false, true, false, false,  false, false } };
 
-                bool[] row1 = Program.GetFirstRow(completeMaze);
-                Point startPoint = new Point(0, 0);
-                int spaceLocation = Program.FindTheEmptySpace(row1);
-                startPoint.X = spaceLocation;
-                Point endLocation = Program.StartSolveMaze(completeMaze, startPoint);
-                int actualX = endLocation.X;
-                int actualY = endLocation.Y;
+            bool[] row1 = Program.GetFirstRow(completeMaze);
+            Point startPoint = new Point(0, 0);
+            int spaceLocation = Program.FindTheEmptySpace(row1);
+            startPoint.X = spaceLocation;
+            Point endLocation = Program.StartSolveMaze(completeMaze, startPoint);
+            int actualX = endLocation.X;
+            int actualY = endLocation.Y;
 
-                int expectedX = 5;
-                int expectedY = 9;
+            int expectedX = 5;
+            int expectedY = 9;
 
-                Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
-                Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
-            }
+            Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
+            Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
+        }
 
-            [Test]
-            public void CompleteMazeTestWithRoom2()
-            {
-                bool[,] completeMaze = new bool[,] {{ false, false, false, false, true,  false, false, false, false, false },
+        [Test]
+        public void CompleteMazeTestWithRoom2()
+        {
+            bool[,] completeMaze = new bool[,] {{ false, false, false, false, true,  false, false, false, false, false },
                                                     { false, true,  true,  true,  true,  true,  true,  true,  true,  false },
                                                     { false, true,  false, false, false, true,  false, false, true,  false },
                                                     { false, false, false, true,  true,  true,  true,  false, true,  false },
@@ -460,20 +461,19 @@ namespace UnitTests
                                                     { false, false, true,  false, false, true,  false, true,  true,  false },
                                                     { false, false, false, false, false, false, false, true,  false, false } };
 
-                bool[] row1 = Program.GetFirstRow(completeMaze);
-                Point startPoint = new Point(0, 0);
-                int spaceLocation = Program.FindTheEmptySpace(row1);
-                startPoint.X = spaceLocation;
-                Point endLocation = Program.StartSolveMaze(completeMaze, startPoint);
-                int actualX = endLocation.X;
-                int actualY = endLocation.Y;
+            bool[] row1 = Program.GetFirstRow(completeMaze);
+            Point startPoint = new Point(0, 0);
+            int spaceLocation = Program.FindTheEmptySpace(row1);
+            startPoint.X = spaceLocation;
+            Point endLocation = Program.StartSolveMaze(completeMaze, startPoint);
+            int actualX = endLocation.X;
+            int actualY = endLocation.Y;
 
-                int expectedX = 7;
-                int expectedY = 9;
+            int expectedX = 7;
+            int expectedY = 9;
 
-                Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
-                Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
-            }
+            Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
+            Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
         }
     }
 }
