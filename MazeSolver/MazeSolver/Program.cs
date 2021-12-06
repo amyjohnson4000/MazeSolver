@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Drawing;
+//References: Used http://csharphelper.com/blog/2020/03/solve-mazes-in-c/ for ideas on how to implement recursion.
 
 public class Program
 {
@@ -25,7 +26,7 @@ public class Program
         else
         {
             StartSolveMaze(maze, startPoint);
-            Console.WriteLine("Maze has been solved.");
+            
         }
     }
 
@@ -36,9 +37,14 @@ public class Program
 
         SolveMaze(maze, path);
 
-        //Show the path that was found
-        foreach (Point p in path)
-            Console.WriteLine("Point, x = {0}, y = {1} " , p.X, p.Y);
+        Console.WriteLine("\n\nMaze has been solved.");
+        Console.WriteLine("\nThe found path is:");
+
+        foreach (Point point in path)
+            Console.WriteLine("x = {0}, y = {1} ", point.X, point.Y);
+
+        Console.WriteLine("\nThe Start Point is: x = {0}, y = {1} ", path[0].X, path[0].Y);
+        Console.WriteLine("The Exit Point is: x = {0}, y = {1} ", path[path.Count - 1].X, path[path.Count - 1].Y);
 
         return (path[path.Count - 1]);
     }
