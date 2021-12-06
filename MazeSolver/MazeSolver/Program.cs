@@ -8,17 +8,16 @@ public class Program
     {
         Console.WriteLine("Maze Solver is beginning.");
 
-        //complete maze
-        bool[,] maze = new bool[,] {{ false, false, false, false, true, false, false, false, false, false },
-                                                    { false, true, true, true, true, true, true, true, true, false },
-                                                    { false, true, false, false, false, true, false, false, true, false },
-                                                    { false, false, false, true, true, true, true, false, true, false },
-                                                    { false, true, true, true, false, false, false, false, true, false },
-                                                    { false, false, false, true, true, true, false, true, true, false },
-                                                    { false, true, false, false, false, true, false, false, false, false },
-                                                    { false, true, true, true, true, true, false, false, true, false },
-                                                    { false, false, true, false, false, true, true, true, true, false },
-                                                    { false, false, false, false, false, false, false, true, false, false } };
+        bool[,] maze = new bool[,] {{ false, false, false, false, true,  false, false, false, false, false },
+                                                    { false, true,  true,  true,  true,  true,  true,  true,  true,  false },
+                                                    { false, true,  false, false, false, true,  false, false, true,  false },
+                                                    { false, false, false, true,  true,  true,  true,  false, true,  false },
+                                                    { false, true,  true,  true,  false, false, false, false, true,  false },
+                                                    { false, false, false, true,  true,  true,  true,  true,  true,  false },
+                                                    { false, true,  false, false, false, true,  true,  true,  false, false },
+                                                    { false, true,  true,  true,  true,  true,  false, true, true,  false },
+                                                    { false, false, true,  false, false, true,  false, true,  true,  false },
+                                                    { false, false, false, false, false, false, false, true,  false, false } };
 
         Point startPoint = FindTheStartingPoint(maze);
         if (startPoint.X == -1 & startPoint.Y == -1)
