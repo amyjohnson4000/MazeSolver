@@ -96,7 +96,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveDown(maze, startPoint);
+            Point endLocation = Program.StartSolveMaze(maze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -119,7 +119,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveDown(maze, startPoint);
+            Point endLocation = Program.StartSolveMaze(maze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -128,52 +128,6 @@ namespace UnitTests
 
             Assert.AreEqual(expectedX, actualX, "End of maze not reached.");
             Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
-        }
-
-        [Test]
-        public void HallwayDeadEndTest1()
-        {
-            bool[,] maze = new bool[,] {{ false, true, false, false, false },
-                { false, true, false, false, false },
-                { false, true, false, false, false },
-                { false, false, false, false, false }};
-
-            bool[] row1 = Program.GetFirstRow(maze);
-            Point startPoint = new Point(0, 0);
-            int spaceLocation = Program.FindTheEmptySpace(row1);
-            startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveDown(maze, startPoint);
-            int actualX = endLocation.X;
-            int actualY = endLocation.Y;
-
-            int expectedX = 1;
-            int expectedY = 2;
-
-            Assert.AreEqual(expectedX, actualX, "Dead end not properly found.");
-            Assert.AreEqual(expectedY, actualY, "Dead end not properly found.");
-        }
-
-        [Test]
-        public void HallwayDeadEndTest2()
-        {
-            bool[,] maze = new bool[,] {{ false, true, false, false, false },
-                { false, true, false, false, false },
-                { false, true, false, false, false },
-                { false, false, false, false, false }};
-
-            bool[] row1 = Program.GetFirstRow(maze);
-            Point startPoint = new Point(0, 0);
-            int spaceLocation = Program.FindTheEmptySpace(row1);
-            startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveDown(maze, startPoint);
-            int actualX = endLocation.X;
-            int actualY = endLocation.Y;
-
-            int expectedX = 1;
-            int expectedY = 2;
-
-            Assert.AreEqual(expectedX, actualX, "Dead end not properly found.");
-            Assert.AreEqual(expectedY, actualY, "Dead end not properly found.");
         }
     }
 
@@ -191,7 +145,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(roomMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(roomMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -214,7 +168,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(roomMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(roomMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -237,7 +191,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(roomMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(roomMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -260,7 +214,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(roomMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(roomMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -289,7 +243,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(windingMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(windingMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -315,7 +269,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(windingMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(windingMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -341,7 +295,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(windingMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(windingMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -367,7 +321,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(windingMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(windingMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -378,15 +332,7 @@ namespace UnitTests
             Assert.AreEqual(expectedY, actualY, "End of maze not reached.");
         }
     }
-
-    //bool[,] maze = new bool[,] {               { false, true, false, false, false },
-    //                                           { false, true, true, true, false },
-    //                                           { false, true, true, true, true },  //true
-    //                                           { false, true, false, false, true },  //true
-    //                                           { true, true, false, false, false },
-    //                                           { true, false, false, false, false } };
-
-
+    
     public class DeadEndTests
     {
         [Test]
@@ -403,7 +349,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(deadEndMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(deadEndMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -428,7 +374,7 @@ namespace UnitTests
             Point startPoint = new Point(0, 0);
             int spaceLocation = Program.FindTheEmptySpace(row1);
             startPoint.X = spaceLocation;
-            Point endLocation = Program.MoveThroughRoom(deadEndMaze, startPoint);
+            Point endLocation = Program.StartSolveMaze(deadEndMaze, startPoint);
             int actualX = endLocation.X;
             int actualY = endLocation.Y;
 
@@ -459,7 +405,7 @@ namespace UnitTests
                 Point startPoint = new Point(0, 0);
                 int spaceLocation = Program.FindTheEmptySpace(row1);
                 startPoint.X = spaceLocation;
-                Point endLocation = Program.MoveThroughRoom(completeMaze, startPoint);
+                Point endLocation = Program.StartSolveMaze(completeMaze, startPoint);
                 int actualX = endLocation.X;
                 int actualY = endLocation.Y;
 
